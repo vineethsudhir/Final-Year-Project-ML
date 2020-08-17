@@ -1,0 +1,13 @@
+day, slot, class, subject, teacher
+monday, 1, CSE8B, 15CS834, VML
+monday, 2, CSE8B, 15CS834, VML
+monday, 3, CSE8B, 15CS81, ASW
+monday, 4, CSE8B, 15CS81, ASW
+tuesday, 1, CSE8B, 15CS82, PPR
+tuesday, 2, CSE8B, 15CS82, PPR
+tuesday, 3, CSE8B, 15CS81, ASW
+tuesday, 4, CSE8B, 15CS81, ASW
+wednesday, 1, CSE8B, 15CS82, PPR
+wednesday, 2, CSE8B, 15CS82, PPR
+wednesday, 3, CSE8B, 15CS834, VML
+wednesday, 4, CSE8B, 15CS834, VML
