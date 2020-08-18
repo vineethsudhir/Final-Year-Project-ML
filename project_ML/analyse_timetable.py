@@ -8,23 +8,14 @@ from sklearn import preprocessing
 Label_encoder = preprocessing.LabelEncoder()
 
 #file names defined here
-time_table_file = 'timetable2.csv'
+time_table_file = 'timetable.csv'
 survey_file = 'surveysumary.csv'
 
 #files being read using pandas
 time_table = pd.read_csv(time_table_file)
 survey = pd.read_csv(survey_file)
-# time_table.set_index("day", inplace = True)
-# survey.set_index('date', inplace = True)
 
-#converting to numpy for analysis
-#sub = time_table.subject
-survey_np = survey.to_numpy()
-# print(survey_np)
-timetable_np = time_table.to_numpy()
-#print(timetable_np)
-
-#creating labelEncoder
+#creating labelEncoder for converting string to numeric value for faster processing
 le = preprocessing.LabelEncoder()
 
 #timetable ... extracting all the colums data from the csv file
@@ -59,7 +50,6 @@ survey_response = survey.iloc[:,[8]]
 survey_t_score = survey.iloc[:,[9]]
 survey_s_score = survey.iloc[:,[10]]
 survey_score = survey.iloc[:,[11]]
-# print(survey_date)
 
 # convert to np as dataframe cannot be labelled and hence ravel() function must be used
 np_survey_date = survey_date.to_numpy()
@@ -91,25 +81,23 @@ l_survey_score = Label_encoder.fit_transform(np_survey_score.ravel())
 # features = list(zip(l_survey_date, l_survey_day, l_survey_slot, l_survey_class, l_survey_subject, l_survey_teacher, l_survey_response, l_survey_t_score, l_survey_s_score))
 features = list(zip(l_survey_day, l_survey_slot, l_survey_subject, l_survey_teacher))
 
-# print(features)
-# print(survey_np.subject)
-
 # Machine learning implementation
 model = KNeighborsClassifier(n_neighbors = 3)
 
-model.fit(features, l_survey_score)
+model.fit(features, np_survey_score.ravel())
 
 result = 0
-iter = time_table.count
-
-for i in range (0,12):
+iter = len(time_table)
+print(iter)
+# A loop for going through the 
+for i in range (0,iter):
     predicted = model.predict([[l_timetable_day[i],l_timetable_slot[i],l_timetable_subject[i],l_timetable_teacher[i]]])
     result = result + predicted
     print('.')
 
-result = result/12
+result = result/iter
 print('This time table has a score of: ',result)
 
-#printing all the read data for debugging
-#print(time_table)
+# printing all the read data for debugging
+# print(time_table)
 # print(survey)
